@@ -12,6 +12,7 @@ import java.util.Set;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Compte {
 
     @Id
@@ -56,6 +57,7 @@ public class Compte {
         this.id = id;
         this.numero = numero;
         this.solde = solde;
+
     }
 
     /**

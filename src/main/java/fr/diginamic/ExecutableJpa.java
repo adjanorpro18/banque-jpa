@@ -52,17 +52,83 @@ public class ExecutableJpa {
 
         //Insertion des operations
 
-        Operation operation1 = new Operation(0, LocalDateTime.of(2020,5,23, 15,55,07),-90, "Retrait");
-        Operation operation2 = new Operation(0, LocalDateTime.of(2019,5,22, 12,45,15),120, "Depot");
-        Operation operation3 = new Operation(0, LocalDateTime.of(2018,11,7, 9,12,22),45, "Depot");
-        Operation operation4 = new Operation(0, LocalDateTime.of(2020,7,18, 9,32,00),-250, "Retrait");
+        Operation operation1 = new Operation(0, LocalDateTime.of(2020,5,23, 15,55,07),-90, "Retrait",compte1);
+        Operation operation2 = new Operation(0, LocalDateTime.of(2019,5,22, 12,45,15),120, "Depot", compte2);
+        Operation operation3 = new Operation(0, LocalDateTime.of(2018,11,7, 9,12,22),45, "Depot",compte3);
+        Operation operation4 = new Operation(0, LocalDateTime.of(2020,7,18, 9,32,00),-250, "Retrait",compte4);
+        Operation operation5 = new Operation(0, LocalDateTime.of(2021,3,28, 4,30,00),50, "Depot",compte5);
+        Operation operation6 = new Operation(0, LocalDateTime.of(2021,2,8, 2,12,00),150, "Dépot",compte6);
+
         manager.persist(operation1);
         manager.persist(operation2);
         manager.persist(operation3);
         manager.persist(operation4);
+        manager.persist(operation5);
+        manager.persist(operation6);
+
+        //rattacher Clinet à Compte
+        //Insertion d'un compte associé à 2 clients
+
+        client1 = manager.find(Client.class, 1);
+        compte1.getClients().add(client1);
+        client2 = manager.find(Client.class, 2);
+        compte2.getClients().add(client2);
+        client3 = manager.find(Client.class, 3);
+        compte3.getClients().add(client3);
+        client3 = manager.find(Client.class, 3);
+        compte4.getClients().add(client3);
+        client4 = manager.find(Client.class, 4);
+        compte5.getClients().add(client4);
+        client4 = manager.find(Client.class, 4);
+        compte6.getClients().add(client4);
+
+
+        //rattacher Client à la Banque
+
+        client1 = manager.find(Client.class, 1);
+        banque1.getClients().add(client1);
+        client2 = manager.find(Client.class, 2);
+        banque1.getClients().add(client2);
+        client3 = manager.find(Client.class, 3);
+        banque2.getClients().add(client3);
+        client3 = manager.find(Client.class, 3);
+        banque3.getClients().add(client3);
+        client4 = manager.find(Client.class, 4);
+        banque3.getClients().add(client4);
+
+        //inserer un compte associéà 2 clients
+
+        Compte compte7 = new Compte(0, "222717",479.27);
+        manager.persist(compte7);
+        // Associer ce compte à deux clients
+        client3.getComptes().add(compte7);
+        client4.getComptes().add(compte7);
 
 
 
+        //Un client avec plusieurs comptes
+
+        //creons d'abord un compte LivretA
+        LivreatA le = new LivreatA(0, "331227",230.45,0.015);
+        manager.persist(le);
+        //créons l'assuranceVie
+        AssuranceVie av = new AssuranceVie(0, "332722", 35, LocalDate.of(2021,02,15),0.015);
+        manager.persist(av);
+        //rattacher à un client
+        client1.getComptes().add(le);
+        client1.getComptes().add(av);
+
+        //Inserer des opérations du type virements sur un compte
+
+        Virement v1 = new Virement(0,LocalDateTime.of(2021, 4, 12, 16,59,00),350.00,"Dépot","Dupont");
+        Virement v2 = new Virement(0,LocalDateTime.of(2021, 5, 13, 14,30,18),112.75,"Dépot","Dupont");
+        manager.persist(v1);
+        manager.persist(v2);
+
+            //inserer ces virements sur un compte
+
+
+        //Inserer des operations du type Operations sur compte
 
 
 

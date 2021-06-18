@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Operation {
 
     @Id
@@ -45,12 +46,16 @@ public class Operation {
      * @param motif
      * @param compte
      */
-    public Operation(int id, LocalDateTime date, double montant, String motif) {
+    public Operation(int id, LocalDateTime date, double montant, String motif, Compte compte) {
         this.id = id;
         this.date = date;
         this.montant = montant;
         this.motif = motif;
+        this.compte = compte;
 
+    }
+
+    public Operation(int id, LocalDateTime date, double montant, String motif) {
     }
 
     /**
